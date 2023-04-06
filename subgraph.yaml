@@ -8,7 +8,7 @@ dataSources:
     source:
       address: '0xFC4FDB49c63f4169c3AEC92b8413598258F9cFd1'
       abi: TrustBridge
-      startBlock: 14778640
+      startBlock: 14778639
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -21,16 +21,16 @@ dataSources:
         - name: TrustBridge
           file: ./abis/TrustBridge.json
       eventHandlers:
-        - event: Approval(indexed address,indexed address,indexed uint256)
-          handler: handleApproval
-        - event: ApprovalForAll(indexed address,indexed address,bool)
-          handler: handleApprovalForAll
+        # - event: Approval(indexed address,indexed address,indexed uint256)
+        #   handler: handleApproval
+        # - event: ApprovalForAll(indexed address,indexed address,bool)
+        #   handler: handleApprovalForAll
         - event: NFTCollected(uint256,address,uint256)
           handler: handleNFTCollected
         - event: NFTCreated(uint256,uint256,string,address,string,string,string,string)
           handler: handleNFTCreated
         - event: NFTReviewed(uint256,uint256,uint256,uint256,address,uint256,string,string)
           handler: handleNFTReviewed
-        - event: Transfer(indexed address,indexed address,indexed uint256)
-          handler: handleTransfer
+        # - event: Transfer(indexed address,indexed address,indexed uint256)
+        #   handler: handleTransfer
       file: ./src/trust-bridge.ts

@@ -12,9 +12,9 @@ import {
 } from "@graphprotocol/graph-ts";
 
 export class NFTCollectedEntity extends Entity {
-  constructor(id: Bytes) {
+  constructor(id: string) {
     super();
-    this.set("id", Value.fromBytes(id));
+    this.set("id", Value.fromString(id));
   }
 
   save(): void {
@@ -22,26 +22,26 @@ export class NFTCollectedEntity extends Entity {
     assert(id != null, "Cannot save NFTCollectedEntity entity without an ID");
     if (id) {
       assert(
-        id.kind == ValueKind.BYTES,
-        `Entities of type NFTCollectedEntity must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        id.kind == ValueKind.STRING,
+        `Entities of type NFTCollectedEntity must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("NFTCollectedEntity", id.toBytes().toHexString(), this);
+      store.set("NFTCollectedEntity", id.toString(), this);
     }
   }
 
-  static load(id: Bytes): NFTCollectedEntity | null {
+  static load(id: string): NFTCollectedEntity | null {
     return changetype<NFTCollectedEntity | null>(
-      store.get("NFTCollectedEntity", id.toHexString())
+      store.get("NFTCollectedEntity", id)
     );
   }
 
-  get id(): Bytes {
+  get id(): string {
     let value = this.get("id");
-    return value!.toBytes();
+    return value!.toString();
   }
 
-  set id(value: Bytes) {
-    this.set("id", Value.fromBytes(value));
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
   }
 
   get collector(): Bytes {
@@ -64,9 +64,9 @@ export class NFTCollectedEntity extends Entity {
 }
 
 export class NFTCreatedEntity extends Entity {
-  constructor(id: Bytes) {
+  constructor(id: string) {
     super();
-    this.set("id", Value.fromBytes(id));
+    this.set("id", Value.fromString(id));
   }
 
   save(): void {
@@ -74,132 +74,220 @@ export class NFTCreatedEntity extends Entity {
     assert(id != null, "Cannot save NFTCreatedEntity entity without an ID");
     if (id) {
       assert(
-        id.kind == ValueKind.BYTES,
-        `Entities of type NFTCreatedEntity must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        id.kind == ValueKind.STRING,
+        `Entities of type NFTCreatedEntity must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("NFTCreatedEntity", id.toBytes().toHexString(), this);
+      store.set("NFTCreatedEntity", id.toString(), this);
     }
   }
 
-  static load(id: Bytes): NFTCreatedEntity | null {
+  static load(id: string): NFTCreatedEntity | null {
     return changetype<NFTCreatedEntity | null>(
-      store.get("NFTCreatedEntity", id.toHexString())
+      store.get("NFTCreatedEntity", id)
     );
   }
 
-  get id(): Bytes {
+  get id(): string {
     let value = this.get("id");
-    return value!.toBytes();
+    return value!.toString();
   }
 
-  set id(value: Bytes) {
-    this.set("id", Value.fromBytes(value));
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
   }
 
-  get owner(): Bytes {
+  get owner(): Bytes | null {
     let value = this.get("owner");
-    return value!.toBytes();
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
   }
 
-  set owner(value: Bytes) {
-    this.set("owner", Value.fromBytes(value));
+  set owner(value: Bytes | null) {
+    if (!value) {
+      this.unset("owner");
+    } else {
+      this.set("owner", Value.fromBytes(<Bytes>value));
+    }
   }
 
-  get nftId(): BigInt {
+  get nftId(): BigInt | null {
     let value = this.get("nftId");
-    return value!.toBigInt();
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  set nftId(value: BigInt) {
-    this.set("nftId", Value.fromBigInt(value));
+  set nftId(value: BigInt | null) {
+    if (!value) {
+      this.unset("nftId");
+    } else {
+      this.set("nftId", Value.fromBigInt(<BigInt>value));
+    }
   }
 
-  get fid(): BigInt {
+  get fid(): BigInt | null {
     let value = this.get("fid");
-    return value!.toBigInt();
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  set fid(value: BigInt) {
-    this.set("fid", Value.fromBigInt(value));
+  set fid(value: BigInt | null) {
+    if (!value) {
+      this.unset("fid");
+    } else {
+      this.set("fid", Value.fromBigInt(<BigInt>value));
+    }
   }
 
-  get sort(): string {
+  get sort(): string | null {
     let value = this.get("sort");
-    return value!.toString();
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set sort(value: string) {
-    this.set("sort", Value.fromString(value));
+  set sort(value: string | null) {
+    if (!value) {
+      this.unset("sort");
+    } else {
+      this.set("sort", Value.fromString(<string>value));
+    }
   }
 
-  get coverUri(): string {
+  get coverUri(): string | null {
     let value = this.get("coverUri");
-    return value!.toString();
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set coverUri(value: string) {
-    this.set("coverUri", Value.fromString(value));
+  set coverUri(value: string | null) {
+    if (!value) {
+      this.unset("coverUri");
+    } else {
+      this.set("coverUri", Value.fromString(<string>value));
+    }
   }
 
-  get multimedia(): string {
+  get multimedia(): string | null {
     let value = this.get("multimedia");
-    return value!.toString();
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set multimedia(value: string) {
-    this.set("multimedia", Value.fromString(value));
+  set multimedia(value: string | null) {
+    if (!value) {
+      this.unset("multimedia");
+    } else {
+      this.set("multimedia", Value.fromString(<string>value));
+    }
   }
 
-  get title(): string {
+  get title(): string | null {
     let value = this.get("title");
-    return value!.toString();
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set title(value: string) {
-    this.set("title", Value.fromString(value));
+  set title(value: string | null) {
+    if (!value) {
+      this.unset("title");
+    } else {
+      this.set("title", Value.fromString(<string>value));
+    }
   }
 
-  get description(): string {
+  get description(): string | null {
     let value = this.get("description");
-    return value!.toString();
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set description(value: string) {
-    this.set("description", Value.fromString(value));
+  set description(value: string | null) {
+    if (!value) {
+      this.unset("description");
+    } else {
+      this.set("description", Value.fromString(<string>value));
+    }
   }
 
-  get score(): BigInt {
+  get score(): BigInt | null {
     let value = this.get("score");
-    return value!.toBigInt();
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  set score(value: BigInt) {
-    this.set("score", Value.fromBigInt(value));
+  set score(value: BigInt | null) {
+    if (!value) {
+      this.unset("score");
+    } else {
+      this.set("score", Value.fromBigInt(<BigInt>value));
+    }
   }
 
-  get reviewCount(): BigInt {
+  get reviewCount(): BigInt | null {
     let value = this.get("reviewCount");
-    return value!.toBigInt();
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  set reviewCount(value: BigInt) {
-    this.set("reviewCount", Value.fromBigInt(value));
+  set reviewCount(value: BigInt | null) {
+    if (!value) {
+      this.unset("reviewCount");
+    } else {
+      this.set("reviewCount", Value.fromBigInt(<BigInt>value));
+    }
   }
 
-  get collectCount(): BigInt {
+  get collectCount(): BigInt | null {
     let value = this.get("collectCount");
-    return value!.toBigInt();
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  set collectCount(value: BigInt) {
-    this.set("collectCount", Value.fromBigInt(value));
+  set collectCount(value: BigInt | null) {
+    if (!value) {
+      this.unset("collectCount");
+    } else {
+      this.set("collectCount", Value.fromBigInt(<BigInt>value));
+    }
   }
 }
 
 export class NFTReviewedEntity extends Entity {
-  constructor(id: Bytes) {
+  constructor(id: string) {
     super();
-    this.set("id", Value.fromBytes(id));
+    this.set("id", Value.fromString(id));
   }
 
   save(): void {
@@ -207,26 +295,26 @@ export class NFTReviewedEntity extends Entity {
     assert(id != null, "Cannot save NFTReviewedEntity entity without an ID");
     if (id) {
       assert(
-        id.kind == ValueKind.BYTES,
-        `Entities of type NFTReviewedEntity must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        id.kind == ValueKind.STRING,
+        `Entities of type NFTReviewedEntity must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("NFTReviewedEntity", id.toBytes().toHexString(), this);
+      store.set("NFTReviewedEntity", id.toString(), this);
     }
   }
 
-  static load(id: Bytes): NFTReviewedEntity | null {
+  static load(id: string): NFTReviewedEntity | null {
     return changetype<NFTReviewedEntity | null>(
-      store.get("NFTReviewedEntity", id.toHexString())
+      store.get("NFTReviewedEntity", id)
     );
   }
 
-  get id(): Bytes {
+  get id(): string {
     let value = this.get("id");
-    return value!.toBytes();
+    return value!.toString();
   }
 
-  set id(value: Bytes) {
-    this.set("id", Value.fromBytes(value));
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
   }
 
   get reviewer(): Bytes {

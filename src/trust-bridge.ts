@@ -11,29 +11,21 @@ import {
 } from '../generated/schema'
 
 export function handleNFTCollected(event: NFTCollected): void {
-  let entity = new NFTCollectedEntity(
-    Bytes.fromHexString(event.transaction.hash.toHex())
-  )
+  let entity = new NFTCollectedEntity(event.transaction.hash.toHex())
   entity.collector = event.params.collector
   entity.nftId = event.params.nftId
   entity.save()
 
-  let nftCreatedEntity = NFTCreatedEntity.load(
-    Bytes.fromHexString(event.params.nftId.toHex())
-  )
+  let nftCreatedEntity = NFTCreatedEntity.load(event.params.nftId.toHex())
   if (nftCreatedEntity == null) {
-    nftCreatedEntity = new NFTCreatedEntity(
-      Bytes.fromHexString(event.params.nftId.toHex())
-    )
+    nftCreatedEntity = new NFTCreatedEntity(event.params.nftId.toHex())
   }
   nftCreatedEntity.collectCount = event.params.NFTCollected
   nftCreatedEntity.save()
 }
 
 export function handleNFTCreated(event: NFTCreated): void {
-  let entity = new NFTCreatedEntity(
-    Bytes.fromHexString(event.params.id.toHex())
-  )
+  let entity = new NFTCreatedEntity(event.params.id.toHex())
   entity.owner = event.params.owner
   entity.nftId = event.params.id
   entity.fid = event.params.fid
@@ -49,9 +41,7 @@ export function handleNFTCreated(event: NFTCreated): void {
 }
 
 export function handleNFTReviewed(event: NFTReviewed): void {
-  let entity = new NFTReviewedEntity(
-    Bytes.fromHexString(event.params.reviewId.toHex())
-  )
+  let entity = new NFTReviewedEntity(event.params.reviewId.toHex())
   entity.reviewer = event.params.reviewer
   entity.nftId = event.params.nftId
   entity.score = event.params.score
@@ -59,13 +49,9 @@ export function handleNFTReviewed(event: NFTReviewed): void {
   entity.multimedia = event.params.multimedia
   entity.save()
 
-  let nftCreatedEntity = NFTCreatedEntity.load(
-    Bytes.fromHexString(event.params.nftId.toHex())
-  )
+  let nftCreatedEntity = NFTCreatedEntity.load(event.params.nftId.toHex())
   if (nftCreatedEntity == null) {
-    nftCreatedEntity = new NFTCreatedEntity(
-      Bytes.fromHexString(event.params.nftId.toHex())
-    )
+    nftCreatedEntity = new NFTCreatedEntity(event.params.nftId.toHex())
   }
   nftCreatedEntity.score = event.params.nftScore
   nftCreatedEntity.reviewCount = event.params.reviewCount

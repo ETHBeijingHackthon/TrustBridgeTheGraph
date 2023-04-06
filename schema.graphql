@@ -1,11 +1,11 @@
 type NFTCollectedEntity @entity {
-  id: Bytes!
+  id: ID!
   collector: Bytes!
   nftId: BigInt!
 }
 
 type NFTCreatedEntity @entity {
-  id: Bytes!
+  id: ID!
   owner: Bytes
   nftId: BigInt
   fid: BigInt
@@ -20,7 +20,7 @@ type NFTCreatedEntity @entity {
 }
 
 type NFTReviewedEntity @entity {
-  id: Bytes!
+  id: ID!
   reviewer: Bytes!
   nftId: BigInt!
   score: BigInt!
