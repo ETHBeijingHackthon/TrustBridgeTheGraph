@@ -1,12 +1,8 @@
-import { BigInt } from '@graphprotocol/graph-ts'
+import { BigInt, Bytes } from '@graphprotocol/graph-ts'
 import {
-  TrustBridge,
-  Approval,
-  ApprovalForAll,
   NFTCollected,
   NFTCreated,
   NFTReviewed,
-  Transfer,
 } from '../generated/TrustBridge/TrustBridge'
 import {
   NFTCollectedEntity,
@@ -16,18 +12,18 @@ import {
 
 export function handleNFTCollected(event: NFTCollected): void {
   let entity = new NFTCollectedEntity(
-    fromHexString(event.transaction.hash.toHex())
+    Bytes.fromHexString(event.transaction.hash.toHex())
   )
   entity.collector = event.params.collector
   entity.nftId = event.params.nftId
   entity.save()
 
   let nftCreatedEntity = NFTCreatedEntity.load(
-    fromHexString(event.params.nftId.toHex())
+    Bytes.fromHexString(event.params.nftId.toHex())
   )
   if (nftCreatedEntity == null) {
     nftCreatedEntity = new NFTCreatedEntity(
-      fromHexString(event.params.nftId.toHex())
+      Bytes.fromHexString(event.params.nftId.toHex())
     )
   }
   nftCreatedEntity.collectCount = event.params.NFTCollected
@@ -35,7 +31,9 @@ export function handleNFTCollected(event: NFTCollected): void {
 }
 
 export function handleNFTCreated(event: NFTCreated): void {
-  let entity = new NFTCreatedEntity(fromHexString(event.params.id.toHex()))
+  let entity = new NFTCreatedEntity(
+    Bytes.fromHexString(event.params.id.toHex())
+  )
   entity.owner = event.params.owner
   entity.nftId = event.params.id
   entity.fid = event.params.fid
@@ -52,7 +50,7 @@ export function handleNFTCreated(event: NFTCreated): void {
 
 export function handleNFTReviewed(event: NFTReviewed): void {
   let entity = new NFTReviewedEntity(
-    fromHexString(event.params.reviewId.toHex())
+    Bytes.fromHexString(event.params.reviewId.toHex())
   )
   entity.reviewer = event.params.reviewer
   entity.nftId = event.params.nftId
@@ -62,11 +60,11 @@ export function handleNFTReviewed(event: NFTReviewed): void {
   entity.save()
 
   let nftCreatedEntity = NFTCreatedEntity.load(
-    fromHexString(event.params.nftId.toHex())
+    Bytes.fromHexString(event.params.nftId.toHex())
   )
   if (nftCreatedEntity == null) {
     nftCreatedEntity = new NFTCreatedEntity(
-      fromHexString(event.params.nftId.toHex())
+      Bytes.fromHexString(event.params.nftId.toHex())
     )
   }
   nftCreatedEntity.score = event.params.nftScore
@@ -76,6 +74,6 @@ export function handleNFTReviewed(event: NFTReviewed): void {
 
 // export function handleTransfer(event: Transfer): void {}
 
-function fromHexString(arg0: string): import('@graphprotocol/graph-ts').Bytes {
-  throw new Error('Function not implemented.')
-}
+// function fromHexString(arg0: string): import('@graphprotocol/graph-ts').Bytes {
+//   throw new Error('Function not implemented.')
+// }

@@ -8,6 +8,7 @@ dataSources:
     source:
       address: '0xFC4FDB49c63f4169c3AEC92b8413598258F9cFd1'
       abi: TrustBridge
+      startBlock: 14778640
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
