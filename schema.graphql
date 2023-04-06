@@ -1,6 +1,29 @@
-type ExampleEntity @entity {
-  id: ID!
-  count: BigInt!
-  owner: Bytes! # address
-  approved: Bytes! # address
+type NFTCollectedEntity @entity {
+  id: Bytes!
+  collector: Bytes!
+  nftId: BigInt!
+}
+
+type NFTCreatedEntity @entity {
+  id: Bytes!
+  owner: Bytes!
+  nftId: BigInt!
+  fid: BigInt!
+  sort: String!
+  coverUri: String!
+  multimedia: String!
+  title: String!
+  description: String!
+  score: BigInt!
+  reviewCount: BigInt!
+  collectCount: BigInt!
+}
+
+type NFTReviewedEntity @entity {
+  id: Bytes!
+  reviewer: Bytes!
+  nftId: BigInt!
+  score: BigInt!
+  description: String!
+  multimedia: String!
 }

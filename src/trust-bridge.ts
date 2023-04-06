@@ -1,4 +1,4 @@
-import { BigInt } from "@graphprotocol/graph-ts"
+import { BigInt } from '@graphprotocol/graph-ts'
 import {
   TrustBridge,
   Approval,
@@ -6,68 +6,76 @@ import {
   NFTCollected,
   NFTCreated,
   NFTReviewed,
-  Transfer
-} from "../generated/TrustBridge/TrustBridge"
-import { ExampleEntity } from "../generated/schema"
+  Transfer,
+} from '../generated/TrustBridge/TrustBridge'
+import {
+  NFTCollectedEntity,
+  NFTCreatedEntity,
+  NFTReviewedEntity,
+} from '../generated/schema'
 
-export function handleApproval(event: Approval): void {
-  // Entities can be loaded from the store using a string ID; this ID
-  // needs to be unique across all entities of the same type
-  let entity = ExampleEntity.load(event.transaction.from.toHex())
-
-  // Entities only exist after they have been saved to the store;
-  // `null` checks allow to create entities on demand
-  if (!entity) {
-    entity = new ExampleEntity(event.transaction.from.toHex())
-
-    // Entity fields can be set using simple assignments
-    entity.count = BigInt.fromI32(0)
-  }
-
-  // BigInt and BigDecimal math are supported
-  entity.count = entity.count + BigInt.fromI32(1)
-
-  // Entity fields can be set based on event parameters
-  entity.owner = event.params.owner
-  entity.approved = event.params.approved
-
-  // Entities can be written to the store with `.save()`
+export function handleNFTCollected(event: NFTCollected): void {
+  let entity = new NFTCollectedEntity(
+    fromHexString(event.transaction.hash.toHex())
+  )
+  entity.collector = event.params.collector
+  entity.nftId = event.params.nftId
   entity.save()
 
-  // Note: If a handler doesn't require existing field values, it is faster
-  // _not_ to load the entity from the store. Instead, create it fresh with
-  // `new Entity(...)`, set the fields that should be updated and save the
-  // entity back to the store. Fields that were not set or unset remain
-  // unchanged, allowing for partial updates to be applied.
-
-  // It is also possible to access smart contracts from mappings. For
-  // example, the contract that has emitted the event can be connected to
-  // with:
-  //
-  // let contract = Contract.bind(event.address)
-  //
-  // The following functions can then be called on this contract to access
-  // state variables and other data:
-  //
-  // - contract.balanceOf(...)
-  // - contract.getApproved(...)
-  // - contract.getCollectionCount(...)
-  // - contract.isApprovedForAll(...)
-  // - contract.name(...)
-  // - contract.nfts(...)
-  // - contract.ownerOf(...)
-  // - contract.reviews(...)
-  // - contract.supportsInterface(...)
-  // - contract.symbol(...)
-  // - contract.tokenURI(...)
+  let nftCreatedEntity = NFTCreatedEntity.load(
+    fromHexString(event.params.nftId.toHex())
+  )
+  if (nftCreatedEntity == null) {
+    nftCreatedEntity = new NFTCreatedEntity(
+      fromHexString(event.params.nftId.toHex())
+    )
+  }
+  nftCreatedEntity.collectCount = event.params.NFTCollected
+  nftCreatedEntity.save()
 }
 
-export function handleApprovalForAll(event: ApprovalForAll): void {}
+export function handleNFTCreated(event: NFTCreated): void {
+  let entity = new NFTCreatedEntity(fromHexString(event.params.id.toHex()))
+  entity.owner = event.params.owner
+  entity.nftId = event.params.id
+  entity.fid = event.params.fid
+  entity.sort = event.params.sort
+  entity.coverUri = event.params.cover
+  entity.multimedia = event.params.multimedia
+  entity.title = event.params.title
+  entity.description = event.params.description
+  entity.score = BigInt.fromI32(0)
+  entity.reviewCount = BigInt.fromI32(0)
+  entity.collectCount = BigInt.fromI32(0)
+  entity.save()
+}
 
-export function handleNFTCollected(event: NFTCollected): void {}
+export function handleNFTReviewed(event: NFTReviewed): void {
+  let entity = new NFTReviewedEntity(
+    fromHexString(event.params.reviewId.toHex())
+  )
+  entity.reviewer = event.params.reviewer
+  entity.nftId = event.params.nftId
+  entity.score = event.params.score
+  entity.description = event.params.description
+  entity.multimedia = event.params.multimedia
+  entity.save()
 
-export function handleNFTCreated(event: NFTCreated): void {}
+  let nftCreatedEntity = NFTCreatedEntity.load(
+    fromHexString(event.params.nftId.toHex())
+  )
+  if (nftCreatedEntity == null) {
+    nftCreatedEntity = new NFTCreatedEntity(
+      fromHexString(event.params.nftId.toHex())
+    )
+  }
+  nftCreatedEntity.score = event.params.nftScore
+  nftCreatedEntity.reviewCount = event.params.reviewCount
+  nftCreatedEntity.save()
+}
 
-export function handleNFTReviewed(event: NFTReviewed): void {}
+// export function handleTransfer(event: Transfer): void {}
 
-export function handleTransfer(event: Transfer): void {}
+function fromHexString(arg0: string): import('@graphprotocol/graph-ts').Bytes {
+  throw new Error('Function not implemented.')
+}

@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.4
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,19 +6,16 @@ dataSources:
     name: TrustBridge
     network: fantom-testnet
     source:
-      address: "0xC8a4A0E16308AC4Ba470515485c02113Ea717dD9"
+      address: '0xFC4FDB49c63f4169c3AEC92b8413598258F9cFd1'
       abi: TrustBridge
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - Approval
-        - ApprovalForAll
         - NFTCollected
         - NFTCreated
         - NFTReviewed
-        - Transfer
       abis:
         - name: TrustBridge
           file: ./abis/TrustBridge.json
@@ -31,7 +28,7 @@ dataSources:
           handler: handleNFTCollected
         - event: NFTCreated(uint256,uint256,string,address,string,string,string,string)
           handler: handleNFTCreated
-        - event: NFTReviewed(uint256,uint256,uint256,address,uint256,string,string)
+        - event: NFTReviewed(uint256,uint256,uint256,uint256,address,uint256,string,string)
           handler: handleNFTReviewed
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
