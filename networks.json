@@ -1,7 +1,14 @@
 {
   "fantom-testnet": {
     "TrustBridge": {
-      "address": "0xC8a4A0E16308AC4Ba470515485c02113Ea717dD9"
+      "address": "0xf48C50DD889b6326cdD56d1E7D0E6290aa755DD1",
+      "startBlock": 14786618
+    }
+  },
+  "goerli": {
+    "TrustBridge": {
+      "address": "",
+      "startBlock": 8789346
     }
   }
 }
