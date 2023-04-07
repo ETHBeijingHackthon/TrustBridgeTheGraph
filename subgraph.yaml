@@ -6,9 +6,9 @@ dataSources:
     name: TrustBridge
     network: fantom-testnet
     source:
-      address: '0xFC4FDB49c63f4169c3AEC92b8413598258F9cFd1'
+      address: '0xf48C50DD889b6326cdD56d1E7D0E6290aa755DD1'
       abi: TrustBridge
-      startBlock: 14778639
+      startBlock: 14786618
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
