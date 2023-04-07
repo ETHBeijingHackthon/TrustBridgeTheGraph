@@ -11,6 +11,7 @@ type NFTCreatedEntity @entity {
   fid: BigInt
   sort: String
   coverUri: String
+  mediaType: String
   multimedia: String
   title: String
   description: String
@@ -25,5 +26,6 @@ type NFTReviewedEntity @entity {
   nftId: BigInt!
   score: BigInt!
   description: String!
-  multimedia: String!
+  mediaType: String
+  multimedia: String
 }

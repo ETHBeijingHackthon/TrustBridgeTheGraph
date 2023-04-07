@@ -31,6 +31,7 @@ export function handleNFTCreated(event: NFTCreated): void {
   entity.fid = event.params.fid
   entity.sort = event.params.sort
   entity.coverUri = event.params.cover
+  entity.mediaType = event.params.mediaType
   entity.multimedia = event.params.multimedia
   entity.title = event.params.title
   entity.description = event.params.description
@@ -46,6 +47,7 @@ export function handleNFTReviewed(event: NFTReviewed): void {
   entity.nftId = event.params.nftId
   entity.score = event.params.score
   entity.description = event.params.description
+  entity.mediaType = event.params.mediaType
   entity.multimedia = event.params.multimedia
   entity.save()
 

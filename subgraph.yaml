@@ -27,9 +27,9 @@ dataSources:
         #   handler: handleApprovalForAll
         - event: NFTCollected(uint256,address,uint256)
           handler: handleNFTCollected
-        - event: NFTCreated(uint256,uint256,string,address,string,string,string,string)
+        - event: NFTCreated(uint256,uint256,string,address,string,string,string,string,string)
           handler: handleNFTCreated
-        - event: NFTReviewed(uint256,uint256,uint256,uint256,address,uint256,string,string)
+        - event: NFTReviewed(uint256,uint256,uint256,uint256,address,uint256,string,string,string)
           handler: handleNFTReviewed
         # - event: Transfer(indexed address,indexed address,indexed uint256)
         #   handler: handleTransfer

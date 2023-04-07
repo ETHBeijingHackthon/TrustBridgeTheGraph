@@ -115,6 +115,12 @@
       {
         "indexed": false,
         "internalType": "string",
+        "name": "mediaType",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
         "name": "multimedia",
         "type": "string"
       },
@@ -177,6 +183,12 @@
         "indexed": false,
         "internalType": "string",
         "name": "description",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "mediaType",
         "type": "string"
       },
       {
@@ -274,6 +286,11 @@
       {
         "internalType": "string",
         "name": "_coverURI",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_mediaType",
         "type": "string"
       },
       {
@@ -409,6 +426,11 @@
       },
       {
         "internalType": "string",
+        "name": "mediaType",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
         "name": "multimedia",
         "type": "string"
       },
@@ -475,6 +497,11 @@
       {
         "internalType": "string",
         "name": "_description",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_mediaType",
         "type": "string"
       },
       {

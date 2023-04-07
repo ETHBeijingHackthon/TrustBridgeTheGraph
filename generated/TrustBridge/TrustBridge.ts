@@ -121,16 +121,20 @@ export class NFTCreated__Params {
     return this._event.parameters[4].value.toString();
   }
 
-  get multimedia(): string {
+  get mediaType(): string {
     return this._event.parameters[5].value.toString();
   }
 
-  get title(): string {
+  get multimedia(): string {
     return this._event.parameters[6].value.toString();
   }
 
-  get description(): string {
+  get title(): string {
     return this._event.parameters[7].value.toString();
+  }
+
+  get description(): string {
+    return this._event.parameters[8].value.toString();
   }
 }
 
@@ -175,8 +179,12 @@ export class NFTReviewed__Params {
     return this._event.parameters[6].value.toString();
   }
 
-  get multimedia(): string {
+  get mediaType(): string {
     return this._event.parameters[7].value.toString();
+  }
+
+  get multimedia(): string {
+    return this._event.parameters[8].value.toString();
   }
 }
 
@@ -215,9 +223,10 @@ export class TrustBridge__nftsResult {
   value5: string;
   value6: string;
   value7: string;
-  value8: BigInt;
+  value8: string;
   value9: BigInt;
   value10: BigInt;
+  value11: BigInt;
 
   constructor(
     value0: BigInt,
@@ -228,9 +237,10 @@ export class TrustBridge__nftsResult {
     value5: string,
     value6: string,
     value7: string,
-    value8: BigInt,
+    value8: string,
     value9: BigInt,
-    value10: BigInt
+    value10: BigInt,
+    value11: BigInt
   ) {
     this.value0 = value0;
     this.value1 = value1;
@@ -243,6 +253,7 @@ export class TrustBridge__nftsResult {
     this.value8 = value8;
     this.value9 = value9;
     this.value10 = value10;
+    this.value11 = value11;
   }
 
   toMap(): TypedMap<string, ethereum.Value> {
@@ -255,9 +266,10 @@ export class TrustBridge__nftsResult {
     map.set("value5", ethereum.Value.fromString(this.value5));
     map.set("value6", ethereum.Value.fromString(this.value6));
     map.set("value7", ethereum.Value.fromString(this.value7));
-    map.set("value8", ethereum.Value.fromUnsignedBigInt(this.value8));
+    map.set("value8", ethereum.Value.fromString(this.value8));
     map.set("value9", ethereum.Value.fromUnsignedBigInt(this.value9));
     map.set("value10", ethereum.Value.fromUnsignedBigInt(this.value10));
+    map.set("value11", ethereum.Value.fromUnsignedBigInt(this.value11));
     return map;
   }
 
@@ -281,28 +293,32 @@ export class TrustBridge__nftsResult {
     return this.value4;
   }
 
-  getMultimedia(): string {
+  getMediaType(): string {
     return this.value5;
   }
 
-  getTitle(): string {
+  getMultimedia(): string {
     return this.value6;
   }
 
-  getDescription(): string {
+  getTitle(): string {
     return this.value7;
   }
 
-  getReviewCount(): BigInt {
+  getDescription(): string {
     return this.value8;
   }
 
-  getScore(): BigInt {
+  getReviewCount(): BigInt {
     return this.value9;
   }
 
-  getCollectCount(): BigInt {
+  getScore(): BigInt {
     return this.value10;
+  }
+
+  getCollectCount(): BigInt {
+    return this.value11;
   }
 }
 
@@ -478,7 +494,7 @@ export class TrustBridge extends ethereum.SmartContract {
   nfts(param0: BigInt): TrustBridge__nftsResult {
     let result = super.call(
       "nfts",
-      "nfts(uint256):(uint256,uint256,string,address,string,string,string,string,uint256,uint256,uint256)",
+      "nfts(uint256):(uint256,uint256,string,address,string,string,string,string,string,uint256,uint256,uint256)",
       [ethereum.Value.fromUnsignedBigInt(param0)]
     );
 
@@ -491,16 +507,17 @@ export class TrustBridge extends ethereum.SmartContract {
       result[5].toString(),
       result[6].toString(),
       result[7].toString(),
-      result[8].toBigInt(),
+      result[8].toString(),
       result[9].toBigInt(),
-      result[10].toBigInt()
+      result[10].toBigInt(),
+      result[11].toBigInt()
     );
   }
 
   try_nfts(param0: BigInt): ethereum.CallResult<TrustBridge__nftsResult> {
     let result = super.tryCall(
       "nfts",
-      "nfts(uint256):(uint256,uint256,string,address,string,string,string,string,uint256,uint256,uint256)",
+      "nfts(uint256):(uint256,uint256,string,address,string,string,string,string,string,uint256,uint256,uint256)",
       [ethereum.Value.fromUnsignedBigInt(param0)]
     );
     if (result.reverted) {
@@ -517,9 +534,10 @@ export class TrustBridge extends ethereum.SmartContract {
         value[5].toString(),
         value[6].toString(),
         value[7].toString(),
-        value[8].toBigInt(),
+        value[8].toString(),
         value[9].toBigInt(),
-        value[10].toBigInt()
+        value[10].toBigInt(),
+        value[11].toBigInt()
       )
     );
   }
@@ -764,16 +782,20 @@ export class CreateNFTCall__Inputs {
     return this._call.inputValues[1].value.toString();
   }
 
-  get _multimedia(): string {
+  get _mediaType(): string {
     return this._call.inputValues[2].value.toString();
   }
 
-  get _title(): string {
+  get _multimedia(): string {
     return this._call.inputValues[3].value.toString();
   }
 
-  get _description(): string {
+  get _title(): string {
     return this._call.inputValues[4].value.toString();
+  }
+
+  get _description(): string {
+    return this._call.inputValues[5].value.toString();
   }
 }
 
@@ -814,8 +836,12 @@ export class ReviewNFTCall__Inputs {
     return this._call.inputValues[2].value.toString();
   }
 
-  get _multimedia(): string {
+  get _mediaType(): string {
     return this._call.inputValues[3].value.toString();
+  }
+
+  get _multimedia(): string {
+    return this._call.inputValues[4].value.toString();
   }
 }
 

@@ -181,6 +181,23 @@ export class NFTCreatedEntity extends Entity {
     }
   }
 
+  get mediaType(): string | null {
+    let value = this.get("mediaType");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set mediaType(value: string | null) {
+    if (!value) {
+      this.unset("mediaType");
+    } else {
+      this.set("mediaType", Value.fromString(<string>value));
+    }
+  }
+
   get multimedia(): string | null {
     let value = this.get("multimedia");
     if (!value || value.kind == ValueKind.NULL) {
@@ -353,12 +370,37 @@ export class NFTReviewedEntity extends Entity {
     this.set("description", Value.fromString(value));
   }
 
-  get multimedia(): string {
-    let value = this.get("multimedia");
-    return value!.toString();
+  get mediaType(): string | null {
+    let value = this.get("mediaType");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set multimedia(value: string) {
-    this.set("multimedia", Value.fromString(value));
+  set mediaType(value: string | null) {
+    if (!value) {
+      this.unset("mediaType");
+    } else {
+      this.set("mediaType", Value.fromString(<string>value));
+    }
+  }
+
+  get multimedia(): string | null {
+    let value = this.get("multimedia");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set multimedia(value: string | null) {
+    if (!value) {
+      this.unset("multimedia");
+    } else {
+      this.set("multimedia", Value.fromString(<string>value));
+    }
   }
 }
